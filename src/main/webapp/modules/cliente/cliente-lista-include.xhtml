@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<body>
+
+	<p:dataTable var="pf" value="#{pessoaBean.pessoasFisica}"
+		rendered="#{pessoaBean.PF}">
+
+		<p:column headerText="Nome">
+			<h:outputText value="#{pf.nome}" />
+		</p:column>
+		<p:column headerText="CPF">
+			<h:outputText value="#{pf.cpf}" />
+		</p:column>
+		<p:column headerText="Data de Nascimento">
+			<h:outputText value="#{pf.dataNascimento}" />
+		</p:column>
+		<p:column headerText="Telefone">
+			<h:outputText value="#{pf.telefone}" />
+		</p:column>
+		<p:column headerText="E-mail">
+			<h:outputText value="#{pf.email}" />
+		</p:column>
+		<p:column headerText="Ações" rendered="#{editar}">
+			<p:commandButton value="X" title="Exluir Pessoa"
+				action="#{pessoaBean.excluirPessoa(pf)}"
+				style="margin-right:8px;font-weight: bold;"
+				ajax="true" update="pessoaForm" process="@this" />
+			<p:commandButton value="Editar"  
+				title="Editar Pessoa" action="#{pessoaBean.editarPessoa(pf)}"
+				ajax="true" update="pessoaForm" process="@this" />
+		</p:column>
+	</p:dataTable>
+
+	<p:dataTable var="pj" value="#{pessoaBean.pessoasJuridica}"
+		rendered="#{pessoaBean.PJ}">
+
+		<p:column headerText="Razao Social">
+			<h:outputText value="#{pj.razaoSocial}" />
+		</p:column>
+		<p:column headerText="Nome Fantasia">
+			<h:outputText value="#{pj.nomeFantasia}" />
+		</p:column>
+		<p:column headerText="CNPJ">
+			<h:outputText value="#{pj.cnpj}" />
+		</p:column>
+		<p:column headerText="Telefones">
+			<ui:repeat var="tel" value="#{pj.telefones}">
+				<h:outputText value="#{tel}" />
+				<br />
+			</ui:repeat>
+		</p:column>
+		<p:column headerText="Site">
+			<h:outputText value="#{pj.site}" />
+		</p:column>
+		<p:column headerText="Ações" rendered="#{editar}">
+			<p:commandButton value="X" title="Exluir Pessoa"
+				action="#{pessoaBean.excluirPessoa(pj)}"
+				style="margin-right:8px;font-weight: bold;"
+				ajax="true" update="pessoaForm" process="@this" />
+			<p:commandButton value="Editar" 
+				title="Editar Pessoa" action="#{pessoaBean.editarPessoa(pj)}"
+				ajax="true" update="pessoaForm" process="@this" />
+		</p:column>
+	</p:dataTable>
+
+</body>
+</html>

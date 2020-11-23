@@ -1,0 +1,60 @@
+<ui:composition template="../home.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<h:form id="pessoaForm">
+			<p:panel id="painelFiltros" header="Fitros"
+				style="margin-bottom:20px">
+				<h:panelGrid columns="2" cellpadding="3">
+
+					<h:outputLabel value="Tipo Pessoa:" />
+					<p:selectOneMenu value="#{pessoaBean.filtroPessoaDTO.tipoPessoa}">
+						<f:selectItems value="#{pessoaBean.listaTipoPessoa()}"
+							var="tpPessoa" itemValue="#{tpPessoa}"
+							itemLabel="#{tpPessoa.descricao}" />
+						<p:ajax update="pessoaForm" event="change" process="@this" />
+					</p:selectOneMenu>
+
+					<h:outputLabel value="Nome:" rendered="#{pessoaBean.PF}" />
+					<h:inputText value="#{pessoaBean.filtroPessoaDTO.nome}"
+						rendered="#{pessoaBean.PF}" />
+
+					<h:outputLabel value="Razão Social:" rendered="#{pessoaBean.PJ}" />
+					<h:inputText value="#{pessoaBean.filtroPessoaDTO.razaoSocial}"
+						rendered="#{pessoaBean.PJ}" />
+
+					<h:outputLabel value="Nome Fantasia:" rendered="#{pessoaBean.PJ}" />
+					<h:inputText value="#{pessoaBean.filtroPessoaDTO.nomeFantasia}"
+						rendered="#{pessoaBean.PJ}" />
+
+					<h:outputLabel value="CPF:" rendered="#{pessoaBean.PF}" />
+					<p:inputText value="#{pessoaBean.filtroPessoaDTO.cpf}"
+						rendered="#{pessoaBean.PF}" />
+
+					<h:outputLabel value="CNPJ:" rendered="#{pessoaBean.PJ}" />
+					<h:inputText value="#{pessoaBean.filtroPessoaDTO.cnpj}"
+						rendered="#{pessoaBean.PJ}" />
+
+				</h:panelGrid>
+				<br />
+				<p:commandButton value="Pesquisar" id="btnPesquisar"
+					style="margin-right:8px;" ajax="true" 
+					event="click" update="pessoaForm" process="@form"
+					action="#{pessoaBean.buscarPessoas()}" />
+
+				<p:commandButton value="Limpar" id="btnLimpar"
+					action="#{pessoaBean.limpar()}" ajax="true" 
+					event="click" update="pessoaForm" process="@form" />
+			</p:panel>
+
+			<!-- LISTA DE CLIENTES -->
+			<ui:include src="/modules/cliente/cliente-lista-include.xhtml" />
+		</h:form>
+	</ui:define>
+
+</ui:composition>

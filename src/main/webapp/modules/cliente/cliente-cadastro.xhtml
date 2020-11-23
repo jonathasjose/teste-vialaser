@@ -1,0 +1,43 @@
+<ui:composition template="../home.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		
+		<h:form id="pessoaForm">
+			<p:panel id="painelFiltros" header="Cadastro"
+				style="margin-bottom:20px">
+					
+        		<ui:fragment rendered="#{pessoaBean.PF}">
+					<ui:include src="/modules/cliente/cadastro-pf-include.xhtml" />
+					<br />
+					<p:commandButton value="Salvar" style="margin-right:8px;" 
+						action="#{pessoaBean.salvarPessoa(pessoaBean.pessoaFisica)}" 
+						ajax="true" update="pessoaForm" process="@form" />
+				</ui:fragment>
+				
+        		<ui:fragment rendered="#{pessoaBean.PJ}">
+					<ui:include src="/modules/cliente/cadastro-pj-include.xhtml" />
+					<br />
+					<p:commandButton value="Salvar" style="margin-right:8px;" 
+						action="#{pessoaBean.salvarPessoa(pessoaBean.pessoaJuridica)}" 
+						ajax="true" update="pessoaForm" process="@form" />
+				</ui:fragment>
+					
+				<p:commandButton value="Limpar" id="btnLimpar" action="#{pessoaBean.limpar()}"
+					ajax="true" update="pessoaForm" process="@this"/>
+			</p:panel>
+			
+			<!-- LISTA DE CLIENTES -->
+			<ui:include src="/modules/cliente/cliente-lista-include.xhtml">
+				<ui:param name="editar" value="true" />
+			</ui:include>
+			
+		</h:form>
+	</ui:define>
+	
+</ui:composition>	

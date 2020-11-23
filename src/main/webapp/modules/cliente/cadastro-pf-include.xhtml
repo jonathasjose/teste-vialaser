@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:panelGrid columns="2" cellpadding="3">
+					
+		<h:outputLabel value="Tipo Pessoa:" />
+		<p:selectOneMenu value="#{pessoaBean.filtroPessoaDTO.tipoPessoa}">
+			<f:selectItems value="#{pessoaBean.listaTipoPessoa()}" var="tpPessoa"
+				itemValue="#{tpPessoa}" itemLabel="#{tpPessoa.descricao}" />
+			<p:ajax update="pessoaForm" event="change" process="@this" listener="#{pessoaBean.novaPessoa()}" />
+		</p:selectOneMenu>
+	
+		<h:outputLabel value="Nome: "/>
+		<h:inputText value="#{pessoaBean.pessoaFisica.nome}" />
+	
+		<h:outputLabel value="CPF: " />
+		<p:inputText value="#{pessoaBean.pessoaFisica.cpf}" />
+	
+		<h:outputLabel value="E-mail: " />
+		<p:inputText value="#{pessoaBean.pessoaFisica.email}" />
+	
+		<h:outputLabel value="Telefone: " />
+		<p:inputText value="#{pessoaBean.pessoaFisica.telefone}" />
+	
+		<h:outputLabel value="Data de Nascimento: " />
+		<p:datePicker id="german" value="#{pessoaBean.pessoaFisica.dataNascimento}" locale="pt" monthNavigator="true" pattern="dd/MM/yyyy"/>
+			
+	</h:panelGrid>
+	
+</html>
